@@ -1,3 +1,4 @@
+package FileProcessing;
 public enum EReadingPoint {
     TagOpenning,
     Name,

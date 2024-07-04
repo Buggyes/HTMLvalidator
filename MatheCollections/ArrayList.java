@@ -63,10 +63,15 @@ public class ArrayList<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public T getAtIndex(int index){
+    public T get(int index){
         if (index >= 0 && index < count)
             return (T)array[index];
         return null;
+    }
+
+    public void set(int index, T obj){
+        if (index >= 0 && index < count)
+            array[index] = obj;
     }
 
     private void organize(){

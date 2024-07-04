@@ -1,13 +1,18 @@
+package FileProcessing;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
 import MatheCollections.*;
 
 public class HTMLValidator {
   private ArrayList<String> fileContent;
+  private ArrayList<TagOcurrence> tagOcurrences;
   private EReadingPoint readingPoint;
   private final String[] singleTons = {"meta","base","br","col","command","embed","hr","img","input","link","param","source","!DOCTYPE"};
+
   public HTMLValidator(){
+    tagOcurrences = new ArrayList<TagOcurrence>();
     fileContent = new ArrayList<String>();
     readingPoint = EReadingPoint.TagOpenning;
   }
@@ -25,32 +30,31 @@ public class HTMLValidator {
     return true;
   }
 
-  private boolean IsSingleton(String tagName){
-    for (int i = 0; i < singleTons.length; i++) {
-      if(singleTons[i].equals(tagName))
-        return true;
-    }
-    return false;
-  }
-
   public EReadResult InterpretHTML(){
     Stack<String> openedTags = new Stack<String>();
+
     for (int i = 0; i < fileContent.count(); i++) {
       readingPoint = EReadingPoint.TagOpenning;
       String firstTagName = "";
       String secondTagName = "";
-      String line = fileContent.getAtIndex(i);
+      String line = fileContent.get(i);
+
       for (int j = 0; j < line.length(); j++) {
         switch (readingPoint) {
+
           case TagOpenning:
             if (line.charAt(j) == '<') {
               readingPoint = EReadingPoint.Name;
             }
             break;
+
           case Name:
-            if (line.charAt(j) == '>' && !IsSingleton(firstTagName)) {
-              readingPoint = EReadingPoint.TagOpenning;
-              openedTags.push(firstTagName);
+            if (line.charAt(j) == '>') {
+              if (!IsSingleton(firstTagName)) {
+                readingPoint = EReadingPoint.TagOpenning;
+                openedTags.push(firstTagName);
+              }
+              addOcurrence(firstTagName);
             }
             else if (line.charAt(j) == ' '){
               readingPoint = EReadingPoint.Atributes;
@@ -62,6 +66,7 @@ public class HTMLValidator {
               firstTagName += line.charAt(j);
             }
             break;
+
           case Atributes:
             if (line.charAt(j) == '>') {
               readingPoint = EReadingPoint.TagOpenning;
@@ -70,6 +75,7 @@ public class HTMLValidator {
               }
             }
             break;
+
           case TagClosure:
             if (line.charAt(j) == '>' && !openedTags.isEmpty()) {
               if (openedTags.peek().equals(secondTagName)) {
@@ -86,11 +92,36 @@ public class HTMLValidator {
               secondTagName += line.charAt(j);
             }
             break;
-          default:
-            break;
         }
       }
     }
     return EReadResult.Ok;
+  }
+
+  private void addOcurrence(String tagName){
+    if(tagOcurrences.isEmpty()){
+      tagOcurrences.add(new TagOcurrence(tagName));
+    }
+    else{
+      boolean found = false;
+      for (int i = 0; i < tagOcurrences.count(); i++) {
+        if(tagOcurrences.get(i).tagName.equals(tagName)){
+          tagOcurrences.set(i, new TagOcurrence(tagName, tagOcurrences.get(i).ocurrences++));
+          found = true;
+          break;
+        }
+      }
+      if(!found){
+        tagOcurrences.add(new TagOcurrence(tagName));
+      }
+    }
+  }
+
+  private boolean IsSingleton(String tagName){
+    for (int i = 0; i < singleTons.length; i++) {
+      if(singleTons[i].equals(tagName))
+        return true;
+    }
+    return false;
   }
 }

@@ -2,20 +2,24 @@ package MatheCollections;
 
 public class ArrayList<T> {
     private Object[] array;
+    private int count;
     private int growth;
     private int initialSize;
 
     public ArrayList(int initialSize, int growth){
+        count = 0;
         this.initialSize = initialSize;
         array = new Object[initialSize];
         this.growth = growth;
     }
     public ArrayList(int growth){
+        count = 0;
         this.initialSize = growth;
         array = new Object[growth];
         this.growth = growth;
     }
     public ArrayList(){
+        count = 0;
         this.initialSize = 20;
         array = new Object[initialSize];
         this.growth = 20;
@@ -27,6 +31,7 @@ public class ArrayList<T> {
 
         for (int i = 0; i < array.length; i++) {
             if(array[i] == null){
+                count++;
                 array[i] = obj;
                 break;
             }
@@ -34,17 +39,34 @@ public class ArrayList<T> {
     }
 
     public void clear(){
+        count = 0;
         array = new Object[initialSize];
     }
 
     public void remove(T obj){
         for (int i = 0; i < array.length; i++) {
             if (array[i].equals(obj)) {
+                count--;
                 array[i] = null;
                 break;
             }
         }
         organize();
+    }
+
+    public boolean isEmpty(){
+        return array[0] == null;
+    }
+
+    public int count(){
+        return count;
+    }
+
+    @SuppressWarnings("unchecked")
+    public T getAtIndex(int index){
+        if (index >= 0 && index < count)
+            return (T)array[index];
+        return null;
     }
 
     private void organize(){

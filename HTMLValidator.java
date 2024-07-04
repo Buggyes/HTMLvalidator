@@ -1,8 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Stack;
+import MatheCollections.*;
 
 public class HTMLValidator {
   private ArrayList<String> fileContent;
@@ -36,34 +35,35 @@ public class HTMLValidator {
 
   public EReadResult InterpretHTML(){
     Stack<String> openedTags = new Stack<String>();
-    for (String line : fileContent) {
+    for (int i = 0; i < fileContent.count(); i++) {
       readingPoint = EReadingPoint.TagOpenning;
       String firstTagName = "";
       String secondTagName = "";
-      for (int i = 0; i < line.length(); i++) {
+      String line = fileContent.getAtIndex(i);
+      for (int j = 0; j < line.length(); j++) {
         switch (readingPoint) {
           case TagOpenning:
-            if (line.charAt(i) == '<') {
+            if (line.charAt(j) == '<') {
               readingPoint = EReadingPoint.Name;
             }
             break;
           case Name:
-            if (line.charAt(i) == '>' && !IsSingleton(firstTagName)) {
+            if (line.charAt(j) == '>' && !IsSingleton(firstTagName)) {
               readingPoint = EReadingPoint.TagOpenning;
               openedTags.push(firstTagName);
             }
-            else if (line.charAt(i) == ' '){
+            else if (line.charAt(j) == ' '){
               readingPoint = EReadingPoint.Atributes;
             }
-            else if (line.charAt(i) == '/'){
+            else if (line.charAt(j) == '/'){
               readingPoint = EReadingPoint.TagClosure;
             }
             else{
-              firstTagName += line.charAt(i);
+              firstTagName += line.charAt(j);
             }
             break;
           case Atributes:
-            if (line.charAt(i) == '>') {
+            if (line.charAt(j) == '>') {
               readingPoint = EReadingPoint.TagOpenning;
               if (!firstTagName.isBlank() && !IsSingleton(firstTagName)) {
                 openedTags.push(firstTagName);
@@ -71,7 +71,7 @@ public class HTMLValidator {
             }
             break;
           case TagClosure:
-            if (line.charAt(i) == '>' && !openedTags.isEmpty()) {
+            if (line.charAt(j) == '>' && !openedTags.isEmpty()) {
               if (openedTags.peek().equals(secondTagName)) {
                 openedTags.pop();
               }
@@ -82,8 +82,8 @@ public class HTMLValidator {
             if (fileContent.isEmpty()) {
               return EReadResult.ClosureAfterPreviousClosure;
             }
-            else if(line.charAt(i) != '<' && line.charAt(i) != '/'){
-              secondTagName += line.charAt(i);
+            else if(line.charAt(j) != '<' && line.charAt(j) != '/'){
+              secondTagName += line.charAt(j);
             }
             break;
           default:

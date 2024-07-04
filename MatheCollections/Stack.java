@@ -42,6 +42,10 @@ public class Stack<T> {
         return (T)output;
     }
 
+    public boolean isEmpty(){
+        return stack[0] == null;
+    }
+
     public void clear(){
         stack = new Object[growth];
     }

@@ -52,9 +52,9 @@ public class HTMLValidator {
             if (line.charAt(j) == '>') {
               if (!IsSingleton(firstTagName)) {
                 readingPoint = EReadingPoint.TagOpenning;
-                openedTags.push(firstTagName);
+                openedTags.push(firstTagName.toLowerCase());
               }
-              addOcurrence(firstTagName);
+              addOcurrence(firstTagName.toLowerCase());
             }
             else if (line.charAt(j) == ' '){
               readingPoint = EReadingPoint.Atributes;
@@ -71,15 +71,17 @@ public class HTMLValidator {
             if (line.charAt(j) == '>') {
               readingPoint = EReadingPoint.TagOpenning;
               if (!firstTagName.isBlank() && !IsSingleton(firstTagName)) {
-                openedTags.push(firstTagName);
+                openedTags.push(firstTagName.toLowerCase());
+                addOcurrence(firstTagName.toLowerCase());
               }
             }
             break;
 
           case TagClosure:
             if (line.charAt(j) == '>' && !openedTags.isEmpty()) {
-              if (openedTags.peek().equals(secondTagName)) {
+              if (openedTags.peek().equals(secondTagName.toLowerCase())) {
                 openedTags.pop();
+                addOcurrence(secondTagName.toLowerCase());
               }
               else{
                 return EReadResult.PrematureClosure;
@@ -106,7 +108,9 @@ public class HTMLValidator {
       boolean found = false;
       for (int i = 0; i < tagOcurrences.count(); i++) {
         if(tagOcurrences.get(i).tagName.equals(tagName)){
-          tagOcurrences.set(i, new TagOcurrence(tagName, tagOcurrences.get(i).ocurrences++));
+          TagOcurrence ocurr = new TagOcurrence(tagName,tagOcurrences.get(i).ocurrences);
+          ocurr.ocurrences++;
+          tagOcurrences.set(i, ocurr);
           found = true;
           break;
         }
@@ -115,6 +119,10 @@ public class HTMLValidator {
         tagOcurrences.add(new TagOcurrence(tagName));
       }
     }
+  }
+
+  public ArrayList<TagOcurrence> getOcurrences(){
+    return tagOcurrences;
   }
 
   private boolean IsSingleton(String tagName){

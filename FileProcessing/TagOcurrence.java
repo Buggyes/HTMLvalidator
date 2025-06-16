@@ -1,5 +1,8 @@
 package FileProcessing;
 
+/**
+ * Classe responsável em armazenar quantas vezes uma tag foi declarada em um arquivo HTML.
+ */
 public class TagOcurrence {
     public String tagName;
     public int ocurrences;

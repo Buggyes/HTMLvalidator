@@ -20,6 +20,10 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * <p> Classe que lida com o input e output da aplicação, além de gerar a janela e seus componentes, 
+ * possibilitando a interação com o usuário.
+ */
 public class MainApplication extends JFrame implements ActionListener{
     private JPanel container;
     private JTextField textField;
@@ -29,6 +33,9 @@ public class MainApplication extends JFrame implements ActionListener{
     private JTable ocurrenceTable;
     private JScrollPane scrollPane;
 
+    /**
+    * <p> Define e gera a instância da aplicação. Declara <code>ActionListener</code>s para reagirem aos inputs do usuário.
+    */
     public MainApplication(){
         validator = new HTMLValidator();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,6 +85,11 @@ public class MainApplication extends JFrame implements ActionListener{
         }
     }
 
+    /**
+     * <p> Lê e valida o arquivo HTML passado por parâmetro.
+     * @param path - O caminho do arquivo HTML a ser lido
+     * @see EReadResult
+     */
     private void verifyHTML(String path){
         if (validator.ReadHTML(path)) {
             EReadResult result = validator.InterpretHTML();

@@ -5,6 +5,13 @@ import java.io.IOException;
 
 import MatheCollections.*;
 
+/**
+ * Lê e valida a formatação de um arquivo HTML.
+ * Possui a maioria de seus métodos públicos para deixar a aplicação decidir como será feito o processo de leitura do arquivo.
+ * @see EReadingPoint
+ * @see TagOcurrence
+ * @see EReadResult
+ */
 public class HTMLValidator {
   private ArrayList<String> fileContent;
   private ArrayList<TagOcurrence> tagOcurrences;
@@ -17,6 +24,11 @@ public class HTMLValidator {
     readingPoint = EReadingPoint.TagOpenning;
   }
 
+  /**
+   * 
+   * @param path
+   * @return <code>true</code> se a leitura foi feita com sucesso, <code>falso</code> caso tenha ocorrido um erro
+   */
   public boolean ReadHTML(String path){
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
         String line;

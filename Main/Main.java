@@ -1,3 +1,4 @@
+package Main;
 import UI.MainApplication;
 
 public class Main{

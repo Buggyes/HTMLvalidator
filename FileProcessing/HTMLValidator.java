@@ -6,7 +6,7 @@ import java.io.IOException;
 import MatheCollections.*;
 
 /**
- * Lê e valida a formatação de um arquivo HTML.
+ * <p>Lê e valida a formatação de um arquivo HTML.
  * Possui a maioria de seus métodos públicos para deixar a aplicação decidir como será feito o processo de leitura do arquivo.
  * @see EReadingPoint
  * @see TagOcurrence
@@ -25,9 +25,11 @@ public class HTMLValidator {
   }
 
   /**
-   * 
-   * @param path
-   * @return <code>true</code> se a leitura foi feita com sucesso, <code>falso</code> caso tenha ocorrido um erro
+   * <p>Usa um <code>BufferedReader</code> para ler o conteúdo do arquivo, linha por linha, e salva essas linhas no 
+   * <code>fileContent</code>.
+   * @param path - caminho do arquivo HTML.
+   * @return <code>true</code> se a leitura foi feita com sucesso, <code>falso</code> caso tenha ocorrido um erro.
+   * @see BufferedReader
    */
   public boolean ReadHTML(String path){
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -42,10 +44,15 @@ public class HTMLValidator {
     return true;
   }
 
+  /**
+   * <p>Interpreta o arquivo HTML lido anteriormente com <code>ReadHTML</code>, validando se sua formatação está correta.
+   * @return <code>EReadResult</code> contendo o resultado da operação.
+   * @see EReadResult
+   */
   public EReadResult InterpretHTML(){
     Stack<String> openedTags = new Stack<String>();
 
-    for (int i = 0; i < fileContent.count(); i++) {
+    for (int i = 0; i < fileContent.getCount(); i++) {
       readingPoint = EReadingPoint.TagOpenning;
       String firstTagName = "";
       String secondTagName = "";
@@ -112,13 +119,17 @@ public class HTMLValidator {
     return EReadResult.Ok;
   }
 
+  /**
+   * <p>Adiciona a ocorrência de uma tag na lista de ocorrências, isto é, quando uma tag é encontrada e está formatada corretamente.
+   * @param tagName - nome da tag encontrada.
+   */
   private void addOcurrence(String tagName){
     if(tagOcurrences.isEmpty()){
       tagOcurrences.add(new TagOcurrence(tagName));
     }
     else{
       boolean found = false;
-      for (int i = 0; i < tagOcurrences.count(); i++) {
+      for (int i = 0; i < tagOcurrences.getCount(); i++) {
         if(tagOcurrences.get(i).tagName.equals(tagName)){
           TagOcurrence ocurr = new TagOcurrence(tagName,tagOcurrences.get(i).ocurrences);
           ocurr.ocurrences++;
@@ -137,6 +148,11 @@ public class HTMLValidator {
     return tagOcurrences;
   }
 
+  /**
+   * Valida se uma tag é singleton. Uma tag singleton é uma tag que não precisa de fechamento.
+   * @param tagName - nome da tag encontrada.
+   * @return <code>true</code> se a tag for singleton, <code>false</code> caso contrário.
+   */
   private boolean IsSingleton(String tagName){
     for (int i = 0; i < singleTons.length; i++) {
       if(singleTons[i].equals(tagName))

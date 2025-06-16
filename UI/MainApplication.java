@@ -103,8 +103,8 @@ public class MainApplication extends JFrame implements ActionListener{
                 case Ok:
                     ArrayList<TagOcurrence> tagOcurrences = validator.getOcurrences();
                     String[] columns = new String[] {"Tags","Número de ocorrências"};
-                    Object[][] data = new Object[tagOcurrences.count()][2];
-                    for (int i = 0; i < tagOcurrences.count(); i++) {
+                    Object[][] data = new Object[tagOcurrences.getCount()][2];
+                    for (int i = 0; i < tagOcurrences.getCount(); i++) {
                         data[i][0] = tagOcurrences.get(i).tagName;
                         data[i][1] = tagOcurrences.get(i).ocurrences;
                     }

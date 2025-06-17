@@ -23,6 +23,8 @@ import java.awt.event.ActionListener;
 /**
  * <p> Classe que lida com o input e output da aplicação, além de gerar a janela e seus componentes, 
  * possibilitando a interação com o usuário.
+ * @see javax.swing.JFrame
+ * @see java.awt.event.ActionListener
  */
 public class MainApplication extends JFrame implements ActionListener{
     private JPanel container;

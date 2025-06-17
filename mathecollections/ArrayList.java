@@ -1,9 +1,21 @@
-package MatheCollections;
+package mathecollections;
 
 public class ArrayList<T> {
+    /**
+     * O array. Onde está armazenado todos os seus elementos.
+     */
     private Object[] array;
+    /**
+     * Variável contadora que mantém o controle de quantos elementos estão no array.
+     */
     private int count;
+    /**
+     * A quantidade de espaços que são adicionados ao array toda vez que ele atinge seu tamamho máximo.
+     */
     private int growth;
+    /**
+     * Define o tamanho inicial do array toda vez que ele é instânciado.
+     */
     private int initialSize;
 
     public ArrayList(int initialSize, int growth){
@@ -43,8 +55,8 @@ public class ArrayList<T> {
     }
 
     /**
-     * <p>Cria uma nova instância do <code>ArrayList</code>, removendo todos os elementos contidos nele, voltando para o seu tamanho inicial e 
-     * definindo o <code>count</code> como 0.
+     * <p>Cria uma nova instância do <code>ArrayList</code>, removendo todos os elementos contidos nele, 
+     * voltando para o seu tamanho inicial e definindo o <code>count</code> como 0.
      */
     public void clear(){
         count = 0;
@@ -66,14 +78,25 @@ public class ArrayList<T> {
         organize();
     }
 
+    /**
+     * @return <code>true</code> se o array estiver vazio (todos os elementos como <code>null</code>), 
+     * <code>false</code> caso contrário.
+     */
     public boolean isEmpty(){
         return array[0] == null;
     }
 
+    /**
+     * @return Quantos elementos não nulos estão no <code>ArrayList</code>
+     */
     public int getCount(){
         return count;
     }
 
+    /**
+     * @param index - O índice do elemento a ser buscado.
+     * @return O elemento que está localizado na posição passada por parâmetro, ou <code>null</code> caso contrário.
+     */
     @SuppressWarnings("unchecked")
     public T get(int index){
         if (index >= 0 && index < count)

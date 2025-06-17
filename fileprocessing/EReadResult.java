@@ -1,4 +1,4 @@
-package FileProcessing;
+package fileprocessing;
 /**
  * <p>Usado para definir o resultado da leitura de uma linha.
  * <p><b>Ok</b> = Não foi encontrado nenhum erro na linha;

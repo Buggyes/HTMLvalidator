@@ -1,4 +1,4 @@
-package UI;
+package ui;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,10 +9,10 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import FileProcessing.EReadResult;
-import FileProcessing.HTMLValidator;
-import FileProcessing.TagOcurrence;
-import MatheCollections.ArrayList;
+import fileprocessing.EReadResult;
+import fileprocessing.HTMLValidator;
+import fileprocessing.TagOcurrence;
+import mathecollections.ArrayList;
 
 import java.awt.Color;
 import java.awt.Dimension;

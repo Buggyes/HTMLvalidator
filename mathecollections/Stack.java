@@ -1,11 +1,20 @@
-package MatheCollections;
+package mathecollections;
 
 /**
  * <p>Tem a mesma funcionalidade de uma pilha genérica simples.
  */
 public class Stack<T> {
+    /**
+     * A quantidade de espaços que são adicionados a pilha toda vez que ela atinge seu tamamho máximo.
+     */
     private int growth;
+    /**
+     * A pilha. Onde está armazenado todos os seus elementos.
+     */
     private Object[] stack;
+    /**
+     * Indica qual posição da pilha é considerada o topo.
+     */
     private int top;
 
     public Stack(int initialSize, int growth){
@@ -56,6 +65,10 @@ public class Stack<T> {
         return (T)output;
     }
 
+    /**
+     * @return <code>true</code> se a pilha estiver vazia (todos os elementos como <code>null</code>), 
+     * <code>false</code> caso contrário.
+     */
     public boolean isEmpty(){
         return stack[0] == null;
     }

@@ -1,9 +1,9 @@
-package FileProcessing;
+package fileprocessing;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import MatheCollections.*;
+import mathecollections.*;
 
 /**
  * <p>Lê e valida a formatação de um arquivo HTML.
@@ -144,6 +144,11 @@ public class HTMLValidator {
     }
   }
 
+  /**
+   * @return Um <code>ArrayList</code> contendo todas as tags encontradas no arquivo HTML, e quantas vezes foram encontradas
+   * @see ArrayList
+   * @see TagOcurrence
+   */
   public ArrayList<TagOcurrence> getOcurrences(){
     return tagOcurrences;
   }

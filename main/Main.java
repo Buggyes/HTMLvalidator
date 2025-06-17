@@ -1,5 +1,5 @@
-package Main;
-import UI.MainApplication;
+package main;
+import ui.MainApplication;
 
 public class Main{
     @SuppressWarnings("unused")

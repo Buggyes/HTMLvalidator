@@ -1,4 +1,4 @@
-package FileProcessing;
+package fileprocessing;
 /**
  * <p>Usado para simplificar o código da leitura de documento HTML.
  * Todas as tags precisam passar por pelo menos <code>TagOpenning</code>, <code>Name</code>, e <code>TagClosure</code>, nesta sequência.

@@ -1,4 +1,4 @@
-package FileProcessing;
+package fileprocessing;
 
 /**
  * Classe responsável em armazenar quantas vezes uma tag foi declarada em um arquivo HTML.

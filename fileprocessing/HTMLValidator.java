@@ -69,7 +69,7 @@ public class HTMLValidator {
 
           case Name:
             if (line.charAt(j) == '>') {
-              if (!IsSingleton(firstTagName)) {
+              if (!isSingleton(firstTagName)) {
                 readingPoint = EReadingPoint.TagOpenning;
                 openedTags.push(firstTagName.toLowerCase());
               }
@@ -89,7 +89,7 @@ public class HTMLValidator {
           case Atributes:
             if (line.charAt(j) == '>') {
               readingPoint = EReadingPoint.TagOpenning;
-              if (!firstTagName.isBlank() && !IsSingleton(firstTagName)) {
+              if (!firstTagName.isBlank() && !isSingleton(firstTagName)) {
                 openedTags.push(firstTagName.toLowerCase());
                 addOcurrence(firstTagName.toLowerCase());
               }
@@ -158,7 +158,7 @@ public class HTMLValidator {
    * @param tagName - nome da tag encontrada.
    * @return <code>true</code> se a tag for singleton, <code>false</code> caso contrário.
    */
-  private boolean IsSingleton(String tagName){
+  private boolean isSingleton(String tagName){
     for (int i = 0; i < singleTons.length; i++) {
       if(singleTons[i].equals(tagName))
         return true;

@@ -32,6 +32,7 @@ public class HTMLValidator {
    * @see BufferedReader
    */
   public boolean ReadHTML(String path){
+    fileContent.clear();
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
         String line;
         while ((line = br.readLine()) != null) {
@@ -50,6 +51,7 @@ public class HTMLValidator {
    * @see EReadResult
    */
   public EReadResult InterpretHTML(){
+    tagOcurrences.clear();
     Stack<String> openedTags = new Stack<String>();
 
     for (int i = 0; i < fileContent.getCount(); i++) {

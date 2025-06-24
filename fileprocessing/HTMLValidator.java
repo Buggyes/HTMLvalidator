@@ -91,8 +91,10 @@ public class HTMLValidator {
           case Atributes:
             if (line.charAt(j) == '>') {
               readingPoint = EReadingPoint.TagOpenning;
-              if (!firstTagName.isBlank() && !isSingleton(firstTagName)) {
-                openedTags.push(firstTagName.toLowerCase());
+              if (!firstTagName.isBlank()) {
+                if (!isSingleton(firstTagName)) {
+                  openedTags.push(firstTagName.toLowerCase());
+                }
                 addOcurrence(firstTagName.toLowerCase());
               }
             }
@@ -104,7 +106,7 @@ public class HTMLValidator {
                 openedTags.pop();
                 addOcurrence(secondTagName.toLowerCase());
               }
-              else{
+              else {
                 return EReadResult.PrematureClosure;
               }
             }
